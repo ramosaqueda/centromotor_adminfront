@@ -25,7 +25,8 @@ function App() {
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
+    if (userInfo) {
+      // && userInfo.isAdmin
       dispatch(listProducts());
       dispatch(listOrders());
     }

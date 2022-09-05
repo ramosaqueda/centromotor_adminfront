@@ -1,6 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Redirect, Route } from "react-router-dom";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
 
 function PrivateRouter({ component: Component, ...rest }) {
   const userLogin = useSelector((state) => state.userLogin);
@@ -9,7 +9,8 @@ function PrivateRouter({ component: Component, ...rest }) {
     <Route
       {...rest}
       component={(props) => {
-        if (userInfo && userInfo.isAdmin) {
+        if (userInfo) {
+          // && userInfo.isAdmin
           return <Component {...props} />;
         } else {
           return <Redirect to={`/login`} />;
