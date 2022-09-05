@@ -7,9 +7,9 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
-} from "../Constants/UserContants";
-import axios from "axios";
-import { toast } from "react-toastify";
+} from '../Constants/UserContants';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 // LOGIN
 export const login = (email, password) => async (dispatch) => {
@@ -24,7 +24,7 @@ export const login = (email, password) => async (dispatch) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
@@ -33,23 +33,24 @@ export const login = (email, password) => async (dispatch) => {
       { email, password },
       config
     );
-
-    if (!data.isAdmin === true) {
-      toast.error("You are not Admin", ToastObjects);
+    let isadmin = data[0].rol_id;
+    if (!isadmin === 2) {
+      toast.error('You are not Admin', ToastObjects);
       dispatch({
         type: USER_LOGIN_FAIL,
       });
     } else {
+      toast.error('Pulento', ToastObjects);
       dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     }
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message === 'Not authorized, token failed') {
       dispatch(logout());
     }
     dispatch({
@@ -61,7 +62,7 @@ export const login = (email, password) => async (dispatch) => {
 
 // LOGOUT
 export const logout = () => (dispatch) => {
-  localStorage.removeItem("userInfo");
+  localStorage.removeItem('userInfo');
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_LIST_RESET });
 };
@@ -89,7 +90,7 @@ export const listUser = () => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message === 'Not authorized, token failed') {
       dispatch(logout());
     }
     dispatch({

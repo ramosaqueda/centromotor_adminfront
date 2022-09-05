@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Loading from "../components/LoadingError/Loading";
-import Toast from "../components/LoadingError/Toast";
-import { login } from "../Redux/Actions/userActions";
-import Message from "./../components/LoadingError/Error";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../components/LoadingError/Loading';
+import Toast from '../components/LoadingError/Toast';
+import { login } from '../Redux/Actions/userActions';
+import Message from './../components/LoadingError/Error';
 
 const Login = ({ history }) => {
   window.scrollTo(0, 0);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
 
@@ -17,7 +17,8 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push("/");
+      //console.log('asas');
+      // history.push('/');
     }
   }, [userInfo, history]);
 
@@ -30,7 +31,7 @@ const Login = ({ history }) => {
       <Toast />
       <div
         className="card shadow mx-auto"
-        style={{ maxWidth: "380px", marginTop: "100px" }}
+        style={{ maxWidth: '380px', marginTop: '100px' }}
       >
         <div className="card-body">
           {error && <Message variant="alert-danger">{error}</Message>}
@@ -43,6 +44,7 @@ const Login = ({ history }) => {
                 placeholder="Email"
                 type="email"
                 value={email}
+                name="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
