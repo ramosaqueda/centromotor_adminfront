@@ -16,10 +16,13 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_RESET,
   PRODUCT_UPDATE_SUCCESS,
+  PRODUCTIMAGES_LIST_REQUEST,
+  PRODUCTIMAGES_LIST_SUCCESS,
+  PRODUCTIMAGES_LIST_FAIL,
 } from "../Constants/ProductConstants";
 
 // ALL PRODUCTS
-export const productListReducer = (state = { products: [] }, action) => {
+export const productListReducer = (state = { products: [],images: [] },   action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true, products: [] };
@@ -27,6 +30,13 @@ export const productListReducer = (state = { products: [] }, action) => {
       return { loading: false, products: action.payload };
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload };
+    case PRODUCTIMAGES_LIST_REQUEST:
+        return { loading: true, images:[] };
+    case PRODUCTIMAGES_LIST_SUCCESS:
+        return { loading: false, images: action.payload };  
+    case PRODUCTIMAGES_LIST_FAIL:
+      return { loading: false, error: action.payload };
+      
     default:
       return state;
   }

@@ -14,6 +14,13 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
+
+  PRODUCTIMAGES_LIST_REQUEST,
+  PRODUCTIMAGES_LIST_SUCCESS,
+  PRODUCTIMAGES_LIST_FAIL,
+
+
+
 } from '../Constants/ProductConstants';
 import axios from 'axios';
 import { logout } from './userActions';
@@ -49,6 +56,24 @@ export const listProducts = () => async (dispatch, getState) => {
       payload: message,
     });
   }
+};
+
+export const listImagesProducts = (id) => async (dispatch, getState) => {
+   try {
+    dispatch({ type: PRODUCTIMAGES_LIST_REQUEST });
+    const { images } = await axios.get(`http://localhost:5000/api/productimages/${id}`);
+    dispatch({type:  PRODUCTIMAGES_LIST_SUCCESS, payload: images});
+
+  } catch (error) {
+    dispatch({
+      type: PRODUCTIMAGES_LIST_FAIL,
+      payload: error,
+    });
+
+  }
+
+ 
+
 };
 
 // DELETE PRODUCT

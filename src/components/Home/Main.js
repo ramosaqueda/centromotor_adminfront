@@ -1,6 +1,6 @@
 import React from "react";
 import TopTotal from "./TopTotal";
-import LatestOrder from "./LatestOrder";
+//import LatestOrder from "./LatestOrder";
 import SaleStatistics from "./SalesStatistics";
 import ProductsStatistics from "./ProductsStatistics";
 import { useSelector } from "react-redux";
@@ -25,9 +25,9 @@ const Main = () => {
           <ProductsStatistics />
         </div>
 
-        {/* LATEST ORDER */}
+        {/* LATEST ORDER  <LatestOrder orders={orders} loading={loading} error={error} />*/}
         <div className="card mb-4 shadow-sm">
-          <LatestOrder orders={orders} loading={loading} error={error} />
+          
         </div>
       </section>
     </>
