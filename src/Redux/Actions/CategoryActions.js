@@ -14,9 +14,9 @@ import {
   CATEGORY_UPDATE_FAIL,
   CATEGORY_UPDATE_REQUEST,
   CATEGORY_UPDATE_SUCCESS,
-} from "../Constants/CategoryConstants";
-import axios from "axios";
-import { logout } from "./userActions";
+} from '../Constants/CategoryConstants';
+import axios from 'axios';
+import { logout } from './userActions';
 
 export const listCategories = () => async (dispatch, getState) => {
   try {
@@ -32,15 +32,15 @@ export const listCategories = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get('http://localhost:9000/api/categories');
-  
+    const { data } = await axios.get('http://localhost:5000/api/categories');
+
     dispatch({ type: CATEGORY_LIST_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message === 'Not authorized, token failed') {
       dispatch(logout());
     }
     dispatch({
@@ -73,7 +73,7 @@ export const deleteCATEGORY = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message === 'Not authorized, token failed') {
       dispatch(logout());
     }
     dispatch({
@@ -112,7 +112,7 @@ export const createCATEGORY =
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message;
-      if (message === "Not authorized, token failed") {
+      if (message === 'Not authorized, token failed') {
         dispatch(logout());
       }
       dispatch({
@@ -133,7 +133,7 @@ export const editCATEGORY = (id) => async (dispatch) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message === 'Not authorized, token failed') {
       dispatch(logout());
     }
     dispatch({
@@ -154,7 +154,7 @@ export const updateCATEGORY = (CATEGORY) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
@@ -172,7 +172,7 @@ export const updateCATEGORY = (CATEGORY) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message === 'Not authorized, token failed') {
       dispatch(logout());
     }
     dispatch({

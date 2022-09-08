@@ -1,49 +1,46 @@
-
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { deleteProduct, listImagesProducts } from "../../Redux/Actions/ProductActions";
-import { getImageByProduct } from "../../functions/getImages.js";
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { deleteProduct } from '../../Redux/Actions/ProductActions';
+import { getImageByProduct } from '../../functions/getImages.js';
 
 const Product = (props) => {
   const { product } = props;
- 
-  const id =product.id;
+  const [images, setImages] = useState([]);
+
+  const id = product.id;
   const dispatch = useDispatch();
 
   const deletehandler = (id) => {
-    if (window.confirm("Are you sure??")) {
+    if (window.confirm('Are you sure??')) {
       dispatch(deleteProduct(id));
     }
   };
 
- 
- 
-  const leerimages =   (id) => {
-    let imagen;
-    //dispatch(listImagesProducts(id));
-    if (id>0) {
-      getImageByProduct(id).then((res) => {
-        imagen = (res.data[0].image);
-        console.log(imagen);
+  useEffect(() => {
+    const obtieneImages = async () => {
+      await getImageByProduct(id).then((res) => {
+        setImages(res.data);
       });
-    }
+    };
 
-    
-  
-    if (imagen!==''){
-      return 'b2d53c71b63699f0c85c14f565046ac5.jpg';
-    }
-   
-  } 
- 
+    obtieneImages();
+  }, []);
 
+  const leerimages = () => {
+    if (images[0] !== undefined) {
+      return images[0].image;
+    } else {
+      return 'No_Preview_image_2.png';
+    }
+  };
   return (
     <>
       <div className="col-md-6 col-sm-6 col-lg-3 mb-5">
         <div className="card card-product-grid shadow-sm">
           <Link to="#" className="img-wrap">
-            <img src={`images/products/${leerimages(product.id)}`} alt="Producto" o />
+            <img src={`images/products/${leerimages()}`} alt="Producto" />
           </Link>
           <div className="info-wrap">
             <Link to="#" className="title text-truncate">

@@ -14,13 +14,9 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
-
   PRODUCTIMAGES_LIST_REQUEST,
   PRODUCTIMAGES_LIST_SUCCESS,
   PRODUCTIMAGES_LIST_FAIL,
-
-
-
 } from '../Constants/ProductConstants';
 import axios from 'axios';
 import { logout } from './userActions';
@@ -59,21 +55,18 @@ export const listProducts = () => async (dispatch, getState) => {
 };
 
 export const listImagesProducts = (id) => async (dispatch, getState) => {
-   try {
+  try {
     dispatch({ type: PRODUCTIMAGES_LIST_REQUEST });
-    const { images } = await axios.get(`http://localhost:5000/api/productimages/${id}`);
-    dispatch({type:  PRODUCTIMAGES_LIST_SUCCESS, payload: images});
-
+    const { images } = await axios.get(
+      `http://localhost:5000/api/productimages/${id}`
+    );
+    dispatch({ type: PRODUCTIMAGES_LIST_SUCCESS, payload: images });
   } catch (error) {
     dispatch({
       type: PRODUCTIMAGES_LIST_FAIL,
       payload: error,
     });
-
   }
-
- 
-
 };
 
 // DELETE PRODUCT
@@ -111,7 +104,19 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 
 // CREATE PRODUCT
 export const createProduct =
-  (name, price, description, image, countInStock) =>
+  (
+    name,
+    price,
+    description,
+    image,
+    countInStock,
+    featured,
+    state,
+    categoryId,
+    brand,
+    size,
+    price_offer
+  ) =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_CREATE_REQUEST });
@@ -128,7 +133,19 @@ export const createProduct =
 
       const { data } = await axios.post(
         `/api/products/`,
-        { name, price, description, image, countInStock },
+        {
+          name,
+          price,
+          description,
+          image,
+          countInStock,
+          featured,
+          state,
+          categoryId,
+          brand,
+          size,
+          price_offer,
+        },
         config
       );
 
