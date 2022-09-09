@@ -7,6 +7,7 @@ import { getCategories } from '../../functions/category';
 
 import { getBrands } from '../../functions/brands';
 
+import axios from 'axios';
 import { createProduct } from './../../Redux/Actions/ProductActions';
 import Toast from '../LoadingError/Toast';
 import Message from '../LoadingError/Error';
@@ -51,6 +52,8 @@ const AddProductMain = () => {
   const [categoryId, setCategoryId] = useState(0);
 
   const [form_data, set_form_data] = useState();
+  const [name_img, setName_img] = useState('');
+  const [file, setFile] = useState();
 
   const dispatch = useDispatch();
 
@@ -101,11 +104,20 @@ const AddProductMain = () => {
     );
   };
 
-  const send_image = (files) => {
-    const formData = new FormData();
-    formData.append('file', files);
-    set_form_data(formData);
-    console.log(formData);
+  const onFileChange = (e) => {
+    e.preventDefault();
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setImage(file.name);
+      if (file.type.includes('image')) {
+        const formdata = new FormData();
+        formdata.append('image', file);
+        return axios.post(`${process.env.REACT_APP_API}/upload/`, formdata);
+      }
+      setFile(file);
+    } else {
+      console.log('oh no, un error');
+    }
   };
 
   return (
@@ -251,10 +263,10 @@ const AddProductMain = () => {
                       onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
                   </div>
-                  <div className="mb-4">
+                  <div className="mb-4 col-md">
                     <label className="form-label">Imágenes</label>
                     <input
-                      className="form-control"
+                      className="form-control col-sm"
                       type="text"
                       placeholder="Subir imágen"
                       value={image}
@@ -262,17 +274,16 @@ const AddProductMain = () => {
                       onChange={(e) => setImage(e.target.value)}
                     />
                     <input
-                      className="form-control mt-3"
+                      className="form-control"
                       type="file"
                       accept="image/*"
-                      onChange={(e) => {
-                        send_image(e.target.files[0]);
-                      }}
+                      onChange={onFileChange}
                     />
+                    <button className="btn btn-primary col-md-3">Upload</button>
                   </div>
 
                   <div className="mb-4">
-                    <img class="img-preview" src={filepreview} />
+                    <img class="img-preview" src={image} />
                   </div>
                 </div>
               </div>

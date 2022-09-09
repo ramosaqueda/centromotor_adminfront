@@ -1,9 +1,9 @@
-import React from "react";
-import TopTotal from "./TopTotal";
+import React from 'react';
+import TopTotal from './TopTotal';
 //import LatestOrder from "./LatestOrder";
-import SaleStatistics from "./SalesStatistics";
-import ProductsStatistics from "./ProductsStatistics";
-import { useSelector } from "react-redux";
+import SaleStatistics from './SalesStatistics';
+import ProductsStatistics from './ProductsStatistics';
+import { useSelector } from 'react-redux';
 
 const Main = () => {
   const orderList = useSelector((state) => state.orderList);
@@ -26,9 +26,7 @@ const Main = () => {
         </div>
 
         {/* LATEST ORDER  <LatestOrder orders={orders} loading={loading} error={error} />*/}
-        <div className="card mb-4 shadow-sm">
-          
-        </div>
+        <div className="card mb-4 shadow-sm"></div>
       </section>
     </>
   );
